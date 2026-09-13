@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+    <!-- 1. ПЕРВЫЙ ЭКРАН (HERO SECTION) -->
+
+    <!-- 1. ДИНАМИЧЕСКИЙ ПЕРВЫЙ ЭКРАН (HERO SECTION) -->
+    <section class="uk-section uk-flex uk-flex-middle uk-background-cover uk-background-center-center uk-light uk-inline" 
+             uk-height-viewport="offset-top: true" 
+             style="background-image: url('{% if page.hero_image %}{% image page.hero_image original as bg_img %}{{ bg_img.url }}{% else %}https://picsum.photos{% endif %}');">
+        
+        <!-- Слой-оверлей для затемнения в стиле глубокого индиго -->
+        <div class="uk-position-cover hero-overlay" style="background: linear-gradient(rgba(30, 27, 75, 0.7), rgba(30, 27, 75, 0.7));"></div>
+
+        <!-- Контент поверх фона -->
+        <div class="uk-container uk-position-relative" style="z-index: 1;">
+            <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                    <!-- Заголовок из админки. Если пустой — выводится стандартный текст -->
+                    <h1 class="uk-heading-medium uk-margin-small-bottom uk-text-bold">
+                        {% if page.hero_title %}{{ page.hero_title }}{% else %}Развивайте ваш бизнес быстрее{% endif %}
+                    </h1>
+                    
+                    <!-- Подзаголовок из админки -->
+                    <p class="uk-text-lead">
+                        {% if page.hero_subtitle %}{{ page.hero_subtitle }}{% else %}Мы создаем эффективные IT-решения для автоматизации и роста крупных компаний на Django и Wagtail.{% endif %}
+                    </p>
+                    
+                    <!-- Кнопки действий -->
+                    <div class="uk-margin-medium-top">
+                        <a href="#modal-callback" uk-toggle class="uk-button uk-button-primary uk-button-large uk-margin-small-right">Начать проект</a>
+                        <a href="/services/" class="uk-button uk-button-default uk-button-large">Наши услуги</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+     
+    <!-- ... Дальше идет ваш неизмененный код Тарифов, Блога и "О компании" ... -->
+
+    <!-- 2. ИНТЕРАКТИВНЫЙ БЛОК ТАРИФОВ / ЦЕН -->
+    <section id="pricing" class="uk-section uk-section-default">
+        <div class="uk-container">
+            <h2 class="uk-text-center uk-margin-remove-bottom uk-text-bold">Стоимость услуг</h2>
+            <p class="uk-text-center uk-text-lead uk-text-muted uk-margin-medium-bottom">Выберите подходящий формат работы для вашего бизнеса</p>
+
+            <!-- Переключатель периодов (Месяц / Год) -->
+            <div class="uk-flex uk-flex-center uk-margin-large-bottom">
+                <ul class="uk-subnav uk-subnav-pill" uk-switcher="connect: #pricing-cards">
+                    <li class="uk-active"><a href="#">Оплата помесячно</a></li>
+                    <li><a href="#">Оплата за год (выгода 20%)</a></li>
+                </ul>
+            </div>
+
+            <!-- Контент тарифов -->
+            <ul id="pricing-cards" class="uk-switcher">
+                <!-- Вкладка 1: Цены за месяц -->
+                <li>
+                    <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
+                        <div>
+                            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                                <h3 class="uk-card-title uk-margin-remove-bottom">Старт</h3>
+                                <div class="uk-text-large uk-text-bold uk-text-primary uk-margin-medium-bottom">25 000 ₽ <span class="uk-text-meta">/ мес</span></div>
+                                <ul class="uk-list uk-list-divider uk-text-small uk-flex-item-1">
+                                    <li><span uk-icon="icon: check" class="uk-text-success"></span> Поддержка 8/5</li>
+                                    <li><span uk-icon="icon: check" class="uk-text-success"></span> 1 базовый аудит в месяц</li>
+                                </ul>
+                                <button uk-toggle="target: #modal-callback" class="uk-button uk-button-default uk-margin-medium-top">Выбрать тариф</button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-card uk-card-primary uk-card-body uk-flex uk-flex-column uk-box-shadow-large">
+                                <span class="uk-label uk-label-warning uk-position-top-right uk-margin-small-top uk-margin-small-right">Популярно</span>
+                                <h3 class="uk-card-title uk-margin-remove-bottom">Бизнес</h3>
+                                <div class="uk-text-large uk-text-bold uk-margin-medium-bottom">55 000 ₽ <span class="uk-text-meta uk-light">/ мес</span></div>
+                                <ul class="uk-list uk-list-divider uk-text-small uk-flex-item-1">
+                                    <li><span uk-icon="icon: check"></span> Поддержка 12/7</li>
+                                    <li><span uk-icon="icon: check"></span> Выделенный менеджер</li>
+                                </ul>
+                                <button uk-toggle="target: #modal-callback" class="uk-button uk-button-default uk-margin-medium-top">Выбрать тариф</button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                                <h3 class="uk-card-title uk-margin-remove-bottom">Премиум</h3>
+                                <div class="uk-text-large uk-text-bold uk-text-primary uk-margin-medium-bottom">95 000 ₽ <span class="uk-text-meta">/ мес</span></div>
+                                <ul class="uk-list uk-list-divider uk-text-small uk-flex-item-1">
+                                    <li><span uk-icon="icon: check" class="uk-text-success"></span> Поддержка 24/7</li>
+                                    <li><span uk-icon="icon: check" class="uk-text-success"></span> VIP-аналитика</li>
+                                </ul>
+                                <button uk-toggle="target: #modal-callback" class="uk-button uk-button-default uk-margin-medium-top">Выбрать тариф</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Вкладка 2: Цены за год -->
+                <li>
+                    <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
+                        <div>
+                            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                                <h3 class="uk-card-title">Старт</h3>
+                                <div class="uk-text-large uk-text-bold uk-text-primary uk-margin-medium-bottom">20 000 ₽ <span class="uk-text-meta">/ мес</span></div>
+                                <button uk-toggle="target: #modal-callback" class="uk-button uk-button-default uk-margin-auto-top">Выбрать тариф</button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-card uk-card-primary uk-card-body uk-flex uk-flex-column uk-box-shadow-large">
+                                <h3 class="uk-card-title">Бизнес</h3>
+                                <div class="uk-text-large uk-text-bold uk-margin-medium-bottom">44 000 ₽ <span class="uk-text-meta uk-light">/ мес</span></div>
+                                <button uk-toggle="target: #modal-callback" class="uk-button uk-button-default uk-margin-auto-top">Выбрать тариф</button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                                <h3 class="uk-card-title">Премиум</h3>
+                                <div class="uk-text-large uk-text-bold uk-text-primary uk-margin-medium-bottom">76 000 ₽ <span class="uk-text-meta">/ мес</span></div>
+                                <button uk-toggle="target: #modal-callback" class="uk-button uk-button-default uk-margin-auto-top">Выбрать тариф</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    {% load wagtailcore_tags wagtailimages_tags %}
+<!-- СЕКЦИЯ ПОСЛЕДНИХ НОВОСТЕЙ БЛОГА -->
+<section class="uk-section uk-section-muted">
+    <div class="uk-container">
+        <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-large-bottom">
+            <h2 class="uk-text-bold uk-margin-remove">Свежие публикации</h2>
+            <a href="/blog/" class="uk-button uk-button-text uk-text-primary">Читать весь блог <span uk-icon="arrow-right"></span></a>
+        </div>
+
+        <!-- ЗАЩИТА: Проверяем, передались ли статьи из базы данных -->
+        {% if latest_posts %}
+            <div class="uk-child-width-1-3@m uk-child-width-1-1 uk-grid-medium" uk-grid>
+                {% for post in latest_posts %}
+                    <div>
+                        <article class="uk-card uk-card-default uk-card-hover uk-border-rounded uk-overflow-hidden uk-flex uk-flex-column" style="height: 100%;">
+                            <div class="uk-card-media-top">
+                                {% if post.feed_image %}
+                                    {% image post.feed_image fill-600x400 as blog_img %}
+                                    <img src="{{ blog_img.url }}" alt="{{ post.title }}">
+                                {% else %}
+                                    <img src="https://picsum.photos{{ forloop.counter }}" alt="Placeholder">
+                                {% endif %}
+                            </div>
+                            <div class="uk-card-body uk-flex-item-1 uk-flex uk-flex-column">
+                                <span class="uk-text-meta uk-margin-small-bottom">{{ post.date|date:"d E Y" }}</span>
+                                <h3 class="uk-card-title uk-margin-remove-top uk-text-bold" style="font-size: 1.3rem;">
+                                    <a href="{{ post.url }}" class="uk-link-reset">{{ post.title }}</a>
+                                </h3>
+                                <p class="uk-text-muted uk-margin-small-top uk-flex-item-1">{{ post.get_excerpt }}</p>
+                                <div class="uk-margin-medium-top">
+                                    <a href="{{ post.url }}" class="uk-button uk-button-text uk-text-primary uk-text-bold">Читать далее</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Этот блок отобразится вместо ошибки, если база пуста -->
+            <div class="uk-text-center uk-padding uk-background-default uk-border-rounded uk-box-shadow-small">
+                <p class="uk-text-muted uk-margin-remove">Статей в блоге пока нет. Скоро здесь появятся новые публикации!</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+
+
+    <!-- 3. БЛОК О КОМПАНИИ -->
+    <section class="uk-section uk-section-muted">
+        <div class="uk-container">
+            <div class="uk-grid-large uk-flex-middle" uk-grid>
+                <div class="uk-width-1-2@m">
+                    <img src="{% static "img/group-of-diverse-peo.jpg" %}" alt="О компании" class="uk-border-rounded uk-box-shadow-large">
+                </div>
+                <div class="uk-width-1-2@m">
+                    <h2 class="uk-text-bold">О нашей компании</h2>
+                    <p class="uk-text-meta">Более 10 лет на рынке разработки</p>
+                    <p>Мы разрабатываем сложные корпоративные решения, объединяя стабильность бэкенда Django и гибкость систем управления контентом Wagtail.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

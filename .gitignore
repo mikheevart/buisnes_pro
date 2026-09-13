@@ -1,0 +1,26 @@
+# Виртуальное окружение
+.venv/
+venv/
+ENV/
+
+# База данных разработки (SQLite)
+*.sqlite3
+
+# Загружаемые медиа-файлы пользователей (картинки, файлы)
+media/
+
+# Кэш Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Настройки сред разработки
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

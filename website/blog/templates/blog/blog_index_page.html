@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<section class="uk-section uk-section-muted">
+    <div class="uk-container">
+        <h1 class="uk-text-center uk-margin-large-bottom uk-text-bold">{{ page.title }}</h1>
+        <div class="uk-text-lead uk-text-center uk-margin-medium-bottom">{{ page.intro|richtext }}</div>
+        
+        {% if blogposts %}
+            <!-- Сетка UIkit 3 -->
+            <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
+                {% for post in blogposts %}
+                    <div>
+                        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-border-rounded uk-overflow-hidden" uk-grid>
+                            <div class="uk-card-media-left uk-cover-container">
+                                {% if post.feed_image %}
+                                    {% image post.feed_image fill-500x500 as blog_img %}
+                                    <img src="{{ blog_img.url }}" alt="{{ post.title }}" uk-cover>
+                                {% else %}
+                                    <img src="https://picsum.photos" alt="Placeholder" uk-cover>
+                                {% endif %}
+                                <canvas width="500" height="500"></canvas>
+                            </div>
+                            <div class="uk-flex uk-flex-middle">
+                                <div class="uk-card-body">
+                                    <span class="uk-label" style="background-color: var(--uk-primary-color);">{{ post.date|date:"d E Y" }}</span>
+                                    <h3 class="uk-card-title uk-margin-small-top uk-text-bold" style="font-size: 1.3rem;">{{ post.title }}</h3>
+                                    <p class="uk-text-muted uk-text-small">{{ post.get_excerpt }}</p>
+                                    <a href="{{ post.url }}" class="uk-button uk-button-text uk-text-primary uk-text-bold">Читать далее</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="uk-alert-warning uk-text-center" uk-alert>
+                <p>Статей в блоге пока не найдено. Убедитесь, что они созданы внутри этой страницы в админке.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<article class="uk-section uk-section-default">
+    <div class="uk-container uk-container-small">
+        
+        <!-- Шапка статьи: Заголовок и Дата -->
+        <header class="uk-margin-medium-bottom">
+            <span class="uk-text-meta">{{ page.date|date:"d E Y" }}</span>
+            <h1 class="uk-heading-small uk-text-bold uk-margin-small-top">{{ page.title }}</h1>
+            <hr class="uk-divider-small">
+        </header>
+
+        <!-- Главное большое изображение статьи (если есть) -->
+        {% if page.feed_image %}
+            <div class="uk-margin-large-bottom uk-cover-container uk-height-medium uk-border-rounded uk-box-shadow-medium">
+                {% image page.feed_image fill-1200x500 as main_img %}
+                <img src="{{ main_img.url }}" alt="{{ page.title }}" uk-cover>
+            </div>
+        {% endif %}
+
+        <!-- РЕНДЕРИНГ БЛОКОВ СТРИМФИЛДА -->
+        <div class="blog-content uk-text-lead uk-margin-large-bottom" style="font-size: 1.15rem; line-height: 1.7; color: #333;">
+            
+            {% for block in page.body %}
+                <div class="uk-margin-medium-bottom">
+                    
+                    {% if block.block_type == 'heading' %}
+                        <!-- Блок: Подзаголовок -->
+                        <h2 class="uk-h2 uk-text-bold uk-margin-large-top" style="color: var(--uk-primary-color);">{{ block.value }}</h2>
+                    
+                    {% elif block.block_type == 'paragraph' %}
+                        <!-- Блок: Обычный текст -->
+                        <div class="uk-panel">
+                            {{ block.value|richtext }}
+                        </div>
+                    
+                    {% elif block.block_type == 'image' %}
+                        <!-- Блок: Картинка (центрированная, адаптивная, с тенью) -->
+                        <figure class="uk-text-center uk-margin-medium-vertical">
+                            {% image block.value width-800 as img %}
+                            <img src="{{ img.url }}" class="uk-border-rounded uk-box-shadow-medium" alt="Иллюстрация">
+                        </figure>
+                    
+                    {% elif block.block_type == 'quote' %}
+                        <!-- Блок: Крупная цитата в стиле UIkit -->
+                        <blockquote class="uk-text-large uk-text-italic uk-margin-medium-vertical" 
+                                    style="border-left: 4px solid var(--uk-primary-color); padding-left: 20px; color: #555;">
+                            <p>{{ block.value }}</p>
+                        </blockquote>
+                    
+                    {% endif %}
+                    
+                </div>
+            {% endfor %}
+            
+        </div>
+
+        <!-- Кнопка возврата к списку статей -->
+        <footer class="uk-margin-large-top">
+            <a href="/blog/" class="uk-button uk-button-default uk-border-rounded"><span uk-icon="arrow-left"></span> Назад в блог</a>
+        </footer>
+
+    </div>
+</article>
+{% endblock %}

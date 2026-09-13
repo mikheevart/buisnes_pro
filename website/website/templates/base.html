@@ -1,0 +1,178 @@
+{% load static wagtailcore_tags %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/uikit.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+</head>
+<body>
+    <!-- НАВИГАЦИЯ -->
+    <header uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+          <!-- 1. НАВИГАЦИЯ И КОНТАКТЫ (ШАПКА) -->
+    <header uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+        <!-- Верхняя панель с контактами (скрыта на мобильных) -->
+        <div class=".uk-section top-contact-bar uk-preserve-color uk-padding-small uk-visible@m">
+            <div class="uk-container">
+                <div class="uk-flex uk-flex-between uk-text-small uk-light">
+                    <div>
+                        <span uk-icon="icon: location; ratio: 0.8" class="uk-margin-small-right"></span> г. Москва, ул. Бизнеса, д. 10
+                    </div>
+                    <div>
+                        <a href="tel:+74950000000" class="uk-link uk-light uk-margin-medium-right">
+                            <span uk-icon="icon: receiver; ratio: 0.8" class="uk-margin-small-right"></span> +7 (495) 000-00-00
+                        </a>
+                        <a href="mailto:info@example.com" class="uk-link uk-light">
+                            <span uk-icon="icon: mail; ratio: 0.8" class="uk-margin-small-right"></span> info@example.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left uk-margin-left"><a class="uk-navbar-item uk-logo" href="/">БизнесПро</a></div>
+            <div class="uk-navbar-right uk-margin-right">
+                <ul class="uk-navbar-nav uk-visible@m">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/services/">Услуги</a></li>
+                    <li><a href="/blog/">Блог</a></li>
+                    <li><a href="#pricing">Цены</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+                <div class="uk-navbar-item uk-visible@m"><a href="#modal-callback" uk-toggle class="uk-button uk-button-primary uk-button-small">Обратный звонок</a></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Основной контент страницы (Главная, Блог или Каталог) -->
+    {% block content %}{% endblock %}
+
+    <!-- ПОДВАЛ (FOOTER) — ТЕПЕРЬ ОН ТУТ ГЛОБАЛЬНО -->
+    <footer id="contacts" class="uk-section uk-section-secondary uk-padding-large-vertical">
+        <div class="uk-container">
+            <div class="uk-child-width-1-3@m" uk-grid>
+                <div>
+                    <h3 class="uk-text-bold">БизнесПро</h3>
+                    <p class="uk-text-muted">Надежный партнер в цифровой трансформации вашего бизнеса на стеке Django + Wagtail + UIkit 3.</p>
+                </div>
+                <div>
+                    <h4 class="uk-text-bold">Контакты</h4>
+                    <p class="uk-text-muted">
+                        ⚡️ г. Москва, ул. Бизнеса, д. 10<br>
+                        📞 +7 (495) 000-00-00<br>
+                        ✉️ info@example.com
+                    </p>
+                </div>
+                <div>
+                    <h4 class="uk-text-bold">Мы в соцсетях</h4>
+                    <div class="uk-margin uk-flex uk-flex-middle">
+                        <!-- Кнопка VK -->
+                        <a href="#" class="uk-flex uk-flex-center uk-flex-middle uk-border-circle uk-link-reset uk-margin-small-right" 
+                           style="width: 36px; height: 36px; background-color: rgba(255,255,255,0.1); color: #fff; transition: 0.3s;"
+                           onmouseover="this.style.backgroundColor='#0077FF'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'"
+                           aria-label="ВКонтакте">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.074 12c.797.16 1.57.514 2.196 1.096.96.892 1.157 2.053 1.157 2.053s.06 1.1-.564 1.1h-2.522s-.361 0-.82-.263c-.456-.263-.88-.938-.88-.938s-.361-.572-.733-.538c-.373.033-.41.423-.41.423s0 .584-.047.886c-.05.32-.236.43-.236.43s-.295.053-.94.053c-1.396 0-2.946-.665-4.05-1.748C6.115 13.064 4.8 9.5 4.8 9.5s-.1-.264.004-.395c.106-.13.393-.13.393-.13h2.642s.255.03.435.158c.18.128.258.344.258.344s.427 1.107 1.002 1.956c1.137 1.68 1.597 1.77 1.82 1.637.33-.2.33-1.92.33-1.92s0-.62-.186-.893c-.15-.22-.44-.287-.57-.3-.104-.01.066-.237.288-.34.33-.15 1.137-.15 2.176-.15 1.144 0 1.25.105 1.36.4.156.406.108 2.008-.24 2.21-.234.137-.234-.342-.234-.342z"/>
+                            </svg>
+                        </a>
+                        <!-- Кнопка Telegram -->
+                        <a href="#" class="uk-flex uk-flex-center uk-flex-middle uk-border-circle uk-link-reset uk-margin-small-right" 
+                           style="width: 36px; height: 36px; background-color: rgba(255,255,255,0.1); color: #fff; transition: 0.3s;"
+                           onmouseover="this.style.backgroundColor='#229ED9'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'"
+                           aria-label="Telegram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="transform: translate(-1px, 0px);">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.62.15-.15 2.7-2.48 2.75-2.7.01-.03.01-.14-.05-.2-.06-.06-.16-.04-.23-.02-.1.02-1.68 1.07-4.75 3.14-.45.31-.86.46-1.23.45-.41-.01-1.2-.23-1.78-.42-.72-.23-1.29-.35-1.24-.74.03-.2.31-.4 1-.64 4.05-1.76 6.75-2.92 8.1-3.48 3.85-1.6 4.65-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.03.2z"/>
+                            </svg>
+                        </a>
+                        <!-- Кнопка YouTube -->
+                        <a href="#" class="uk-flex uk-flex-center uk-flex-middle uk-border-circle uk-link-reset" 
+                           style="width: 36px; height: 36px; background-color: rgba(255,255,255,0.1); color: #fff; transition: 0.3s;"
+                           onmouseover="this.style.backgroundColor='#FF0000'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'"
+                           aria-label="YouTube">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="uk-divider-icon uk-margin-medium-top" style="opacity: 0.2;">
+            <p class="uk-text-small uk-text-center uk-text-muted">© 2026 БизнесПро. Все права защищены.</p>
+        </div>
+    </footer>
+
+
+     <!-- МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ -->
+    <div id="modal-callback" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-border-rounded">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <h2 class="uk-modal-title uk-text-center">Оставить заявку</h2>
+            <p class="uk-text-center uk-text-muted">Заполните форму, и наш менеджер свяжется с вами в течение 15 минут.</p>
+            
+            <form class="uk-form-stacked uk-margin-medium-top">
+                <!-- Поле Имя -->
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-name">Ваше имя</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-name" type="text" placeholder="Иван Иванов" required>
+                    </div>
+                </div>
+
+                <!-- Поле Телефон -->
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-phone">Номер телефона</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-phone" type="tel" placeholder="+7 (999) 000-00-00" required>
+                    </div>
+                </div>
+
+                <!-- Поле Комментарий -->
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-message">Какой проект планируете?</label>
+                    <div class="uk-form-controls">
+                        <textarea class="uk-textarea" id="form-message" rows="3" placeholder="Кратко опишите вашу задачу..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Чекбокс согласия -->
+                <div class="uk-margin">
+                    <label class="uk-text-small uk-text-muted">
+                        <input class="uk-checkbox uk-margin-small-right" type="checkbox" checked required> 
+                        Я согласен на обработку персональных данных
+                    </label>
+                </div>
+
+                <!-- Кнопка отправки -->
+                <div class="uk-margin-medium-top">
+                    <button type="submit" class="uk-button uk-button-primary uk-width-1-1 uk-button-large">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'js/uikit.min.js' %}"></script>
+    <script src="{% static 'js/uikit-icons.min.js' %}"></script>
+    <script src="{% static 'js/imask.js' %}"></script>
+
+     <!-- Кастомные скрипты для инициализации маски и плавного скролла -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Плавный скролл UIkit 3 с отступом под липкую шапку
+            UIkit.scroll('a[href^="#"]',{offset:80});
+
+            # Инициализация маски телефона
+            var phoneInput = document.getElementById('phone-mask');
+            if (phoneInput) {
+                IMask(phoneInput, { 
+                    mask: '+7 (000) 000-00-00', 
+                    lazy: false 
+                });
+            }
+        });
+    </script>
+</body>
+</html>
